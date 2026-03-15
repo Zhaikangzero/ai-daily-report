@@ -1,0 +1,48 @@
+# AI Daily Report 配置
+
+## 关注领域
+topics:
+  - AI
+  - 机器人
+  - AI硬件
+  - AI政策
+  - AI应用创新
+
+## 资讯源
+sources:
+  - name: Hacker News
+    url: https://hnrss.org/frontpage
+    topics: [AI, 大模型]
+  
+  - name: 36kr AI
+    url: https://www.36kr.com/information/AI/
+    topics: [AI, 科技]
+  
+  - name: Reddit r/Artificial
+    url: https://www.reddit.com/r/Artificial/.json
+    topics: [AI]
+  
+  - name: Robohub
+    url: http://robohub.org/feed/
+    topics: [机器人]
+  
+  - name: IEEE Robotics
+    url: https://spectrum.ieee.org/feeds/feed.rss
+    topics: [机器人, AI硬件]
+
+## LLM 配置
+llm:
+  provider: minimax
+  model: MiniMax-M2.1
+  # 放在 GitHub Secrets 中
+  api_key_env: MINIMAX_API_KEY
+
+## 网站配置
+site:
+  title: "AI Daily Report"
+  description: "每日AI领域资讯早报"
+  url: "https://zhaikangzero.github.io/ai-daily-report"
+  author: "AI Daily Report"
+
+## 定时运行 (UTC)
+schedule: "0 23 * * *"  # 北京时间 7:00

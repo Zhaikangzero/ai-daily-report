@@ -1,0 +1,50 @@
+name: AI Daily Report
+
+on:
+  schedule:
+    # 每天北京时间 7:00 (UTC 23:00)
+    - cron: '0 23 * * *'
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  daily-report:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          
+      - name: Fetch latest news
+        env:
+          MINIMAX_API_KEY: ${{ secrets.MINIMAX_API_KEY }}
+        run: |
+          python scripts/fetcher.py
+          
+      - name: Generate daily report
+        env:
+          MINIMAX_API_KEY: ${{ secrets.MINIMAX_API_KEY }}
+        run: |
+          python scripts/summarizer.py
+          
+      - name: Build static site
+        run: |
+          python scripts/builder.py
+          
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          commit_message: "daily: update AI report - ${{ github.run_number }}"
