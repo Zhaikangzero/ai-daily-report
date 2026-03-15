@@ -152,16 +152,11 @@ def generate_index_html(reports, config):
             <p>{site_config.get('description', '每日AI领域资讯早报')}</p>
         </header>
         
-        {""
-        if latest:
-        f'''<div class="latest-report">
+        {'''<div class="latest-report">
             <h2>📰 今日要闻</h2>
             <p>最新日报已更新，点击查看详细内容</p>
-            <a href="{latest['url']}">查看今日日报 →</a>
-        </div>'''
-        else:
-        '<div class="latest-report"><p>暂无日报</p></div>'
-        ""}
+            <a href="''' + latest['url'] + '''">查看今日日报 →</a>
+        </div>''' if latest else '<div class="latest-report"><p>暂无日报</p></div>'}
         
         <div class="archive">
             <h2>📁 历史日报</h2>
